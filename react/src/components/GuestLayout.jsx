@@ -9,9 +9,11 @@ export default function GuestLayout(){
     }
 
     return (
-        <div>
-            {/* render login/signup by using Outlet*/}
-            <Outlet />
+        <div className="login-signup-form animated fadeInDown">
+            <div className="form">
+                {/* render login/signup by using Outlet*/}
+                <Outlet />
+            </div>
         </div>
     )
 }
