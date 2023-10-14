@@ -5,6 +5,7 @@ import Users from "./views/Users";
 import NotFound from "./views/NotFound";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
+import Dashboard from "./views/Dashboard";
 
 // define react route
 const router = createBrowserRouter([
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Users />
+                element: <Dashboard />
             },
             {
                 path: '/users',
