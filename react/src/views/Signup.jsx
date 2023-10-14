@@ -11,6 +11,14 @@ export default function Signup() {
     // ev = event
     const onSubmit = (ev) => {
         ev.preventDefault();
+
+        const payload = {
+            name: nameRef.current.value,
+            email:emailRef.current.value,
+            password:passwordRef.current.value,
+            // not use camel case -> for laravel
+            password_confirmation:passwordConfirmationRef.current.value,
+        }
     }
 
     return (
