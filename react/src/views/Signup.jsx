@@ -32,6 +32,13 @@ export default function Signup() {
                 setUser(data.user)
                 setToken(data.token)
             })
+            .catch(err => {
+                const response = err.response;
+                if(response && response.status === 422){
+                    // display error
+                    console.log(response.data.errors)
+                }
+            })
     }
 
     return (
