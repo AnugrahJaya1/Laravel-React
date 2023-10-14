@@ -13,8 +13,8 @@ class AuthController extends Controller
 {
     public function signup(SignupRequest $request)
     {
-        $data = $request->validate();
-        /** @var \App|Model\User user */
+        $data = $request->validated();
+        /** @var \App\Models\User user */
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -29,13 +29,14 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credential = $request->validate(); // email and password
+        $credential = $request->validated(); // email and password
         if (!Auth::attempt($credential)) {
             return response([
                 'message' => 'Provided email address or password is incorrect'
             ]);
         }
 
+        /** @var User user */
         $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
 
@@ -45,6 +46,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        /** @var User user */
         $user = $request->user();
 
         $user->currentAccessToken()->delete();
