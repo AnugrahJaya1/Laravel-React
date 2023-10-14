@@ -2,12 +2,12 @@ import axios from "axios";
 
 const axiosClient = axios.create({
     // import env var
-    baseURL: `${import.meta.env.VITA_APP_BASE_URL}/api`
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`
 })
 
 // add req intercept, before send req
 axiosClient.interceptors.request.use((config) => {
-    const token = localStorage.get('ACCESS_TOKEN')
+    const token = localStorage.getItem('ACCESS_TOKEN')
 
     // modify config
     config.headers.Authorization = `Bearer ${token}`

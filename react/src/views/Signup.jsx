@@ -25,7 +25,6 @@ export default function Signup() {
             password_confirmation:passwordConfirmationRef.current.value,
         }
 
-        
         // make req to server
         axiosClient.post('/signup', payload)
             .then(({data})=>{ // response
