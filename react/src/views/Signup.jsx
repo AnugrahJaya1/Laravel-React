@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import axiosClient from "../axios-client";
+import { useStateContext } from "../contexts/ContextProvider";
 
 export default function Signup() {
     // allows persist data between renders
@@ -7,6 +9,9 @@ export default function Signup() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmationRef = useRef();
+
+    // state context
+    const {setUser, setToken} = useStateContext()
 
     // ev = event
     const onSubmit = (ev) => {
@@ -19,6 +24,14 @@ export default function Signup() {
             // not use camel case -> for laravel
             password_confirmation:passwordConfirmationRef.current.value,
         }
+
+        
+        // make req to server
+        axiosClient.post('/signup', payload)
+            .then(({data})=>{ // response
+                setUser(data.user)
+                setToken(data.token)
+            })
     }
 
     return (
