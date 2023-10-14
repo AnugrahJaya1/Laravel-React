@@ -30,7 +30,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credential = $request->validate(); // email and password
-        if(!Auth::attempt($credential)){
+        if (!Auth::attempt($credential)) {
             return response([
                 'message' => 'Provided email address or password is incorrect'
             ]);
@@ -45,5 +45,10 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $user = $request->user();
+
+        $user->currentAccessToken()->delete();
+
+        return response('', 204);
     }
 }
