@@ -52,7 +52,17 @@ export default function UserForm() {
                 })
         } else {
             // create
-        }
+            axiosClient.post(`/users`, user)
+                .then(() => {
+                    // TODO show notification
+                    navigate('/users')
+                })
+                .catch(err => {
+                    const response = err.response;
+                    if (response && response.status === 422) {
+                        setErrors(response.data.errors)
+                    }
+                })
     }
 
     return (
