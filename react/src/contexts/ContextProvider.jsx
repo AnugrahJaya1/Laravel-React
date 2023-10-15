@@ -5,13 +5,16 @@ import { createContext, useState } from "react";
 const StateContext = createContext({
     user: null,
     toke: null,
+    notification: null,
     setUser: () => {}, // function
     setToken: () => {}, // function
+    setNotification: () => {}
 })
 
 export const ContextProvider = ({ children }) => {
     //set var
     const [user, setUser] = useState( {} ); //empty object
+    const [notification, setNotification] = useState('');
     // get ACCESS_TOKEN, return null if empty
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN')); 
 
@@ -33,8 +36,10 @@ export const ContextProvider = ({ children }) => {
             {
                 user, // current user
                 token, // user token
+                notification,
                 setUser, // function
                 setToken, // function
+                setNotification
             }
         }>
         {/* render children */}
