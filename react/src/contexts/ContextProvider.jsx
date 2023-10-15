@@ -5,13 +5,16 @@ import { createContext, useState } from "react";
 const StateContext = createContext({
     user: null,
     toke: null,
+    notification: null,
     setUser: () => {}, // function
     setToken: () => {}, // function
+    setNotification: () => {}
 })
 
 export const ContextProvider = ({ children }) => {
     //set var
     const [user, setUser] = useState( {} ); //empty object
+    const [notification, _setNotification] = useState('');
     // get ACCESS_TOKEN, return null if empty
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN')); 
 
@@ -27,14 +30,24 @@ export const ContextProvider = ({ children }) => {
         }
     }
 
+    // make notification disappear after 5 sec
+    const setNotification = (message) => {
+        _setNotification(message);
+        setTimeout(()=>{
+            _setNotification('')
+        }, 5000) //5 sec
+    }
+
     return (
         <StateContext.Provider value={
             // object
             {
                 user, // current user
                 token, // user token
+                notification,
                 setUser, // function
                 setToken, // function
+                setNotification
             }
         }>
         {/* render children */}
