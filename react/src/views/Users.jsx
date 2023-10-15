@@ -10,9 +10,9 @@ export default function Users() {
         getUsers(); // exec twice
     }, [])
 
-    const onDelete = (u) =>{
+    const onDelete = (u) => {
         // confirm dialog
-        if(!window.confirm("Are you sure you want to delete this user?")){
+        if (!window.confirm("Are you sure you want to delete this user?")) {
             return
         }
 
@@ -59,22 +59,35 @@ export default function Users() {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {/* iterate user */}
-                        {users.map(u => (
+                    {/* if loading show this */}
+                    {loading
+                        && <tbody>
                             <tr>
-                                <td>{u.id}</td>
-                                <td>{u.name}</td>
-                                <td>{u.email}</td>
-                                <td>{u.created_at}</td>
-                                <td>
-                                    <Link to={'/users/'+u.id} className="btn-edit">Edit</Link>
-                                    &nbsp;
-                                    <button onClick={ev => onDelete(u)} className="btn-delete">Delete</button>
+                                <td colSpan="5" className="text-center">
+                                    Loading...
                                 </td>
                             </tr>
-                        ))}
-                    </tbody>
+                        </tbody>
+                    }
+                    {/* else show this */}
+                    {!loading
+                        && <tbody>
+                            {/* iterate user */}
+                            {users.map(u => (
+                                <tr>
+                                    <td>{u.id}</td>
+                                    <td>{u.name}</td>
+                                    <td>{u.email}</td>
+                                    <td>{u.created_at}</td>
+                                    <td>
+                                        <Link to={'/users/' + u.id} className="btn-edit">Edit</Link>
+                                        &nbsp;
+                                        <button onClick={ev => onDelete(u)} className="btn-delete">Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    }
                 </table>
             </div>
         </div>
