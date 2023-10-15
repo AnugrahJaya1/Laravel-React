@@ -33,6 +33,10 @@ export default function UserForm() {
         }, [])
     }
 
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+    }
+
     return (
         // fragment
         <>
@@ -51,6 +55,17 @@ export default function UserForm() {
                         ))}
                     </div>
                 }
+
+                {/* form */}
+                {!loading && (
+                    <form onSubmit={onSubmit}>
+                        <input value={user.name} onChange={ev => setUsers({ ...user, name: ev.target.value })} placeholder="Name" />
+                        <input value={user.email} onChange={ev => setUsers({ ...user, email: ev.target.value })} placeholder="Email" />
+                        <input onChange={ev => setUsers({ ...user, password: ev.target.value })} placeholder="Password" />
+                        <input onChange={ev => setUsers({ ...user, password_confirmation: ev.target.value })} placeholder="Password Confirmation" />
+                        <button className="btn">Save</button>
+                    </form>
+                )}
             </div>
         </>
     )
