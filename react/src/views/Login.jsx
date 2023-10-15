@@ -43,6 +43,14 @@ export default function Login() {
             <h1 className="title">
                 Login into your account
             </h1>
+            {/* show error if exist */}
+            {
+                errors && <div className="alert">
+                    {Object.keys(errors).map(key => (
+                        <p key={key}>{errors[key][0]}</p>
+                    ))}
+                </div>
+            }
             <input ref={emailRef} type="email" placeholder="Email" />
             <input ref={passwordRef} type="password" placeholder="Password" />
             <button className="btn btn-block">Login</button>
