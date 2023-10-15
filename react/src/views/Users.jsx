@@ -10,6 +10,23 @@ export default function Users() {
         getUsers(); // exec twice
     }, [])
 
+    const onDelete = (u) =>{
+        // confirm dialog
+        if(!window.confirm("Are you sure you want to delete this user?")){
+            return
+        }
+
+        // send delete user
+        axiosClient.delete(`/users/${u.id}`)
+            .then(() => {
+                // TODO show notification
+                getUsers()
+            })
+            .catch(err => {
+
+            })
+    }
+
     const getUsers = () => {
         setLoading(true)
         axiosClient.get('/users')
@@ -53,7 +70,7 @@ export default function Users() {
                                 <td>
                                     <Link to={'/users/'+u.id} className="btn-edit">Edit</Link>
                                     &nbsp;
-                                    <button onClick={''} className="btn-delete">Delete</button>
+                                    <button onClick={ev => onDelete(u)} className="btn-delete">Delete</button>
                                 </td>
                             </tr>
                         ))}
