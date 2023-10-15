@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import axiosClient from "../axios-client";
 
 export default function UserForm() {
@@ -19,6 +19,8 @@ export default function UserForm() {
     // set error message
     const [errors, setErrors] = useState(null)
 
+    const navigate = useNavigate()
+
     if (id) {
         useEffect(() => {
             setLoading(true)
@@ -35,6 +37,22 @@ export default function UserForm() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
+        // update
+        if (user.id) {
+            axiosClient.put(`/users/${user.id}`, user)
+                .then(() => {
+                    // TODO show notification
+                    navigate('/users')
+                })
+                .catch(err => {
+                    const response = err.response;
+                    if (response && response.status === 422) {
+                        setErrors(response.data.errors)
+                    }
+                })
+        } else {
+            // create
+        }
     }
 
     return (
