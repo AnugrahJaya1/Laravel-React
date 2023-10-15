@@ -7,6 +7,7 @@ import router from './router.jsx'
 import { ContextProvider } from './contexts/ContextProvider.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  // make callback twice
   <React.StrictMode>
     {/* Use Context Provider for API*/}
     <ContextProvider>
