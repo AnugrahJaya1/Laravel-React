@@ -4,30 +4,30 @@ import { useEffect } from "react";
 import axiosClient from "../axios-client.js";
 
 export default function DefaultLayout() {
-    const { user, token, setUser, setToken } = useStateContext();
+    const { user, token, setUser, setToken, notification } = useStateContext();
 
     if (!token) {
         return <Navigate to="/login" />
     }
 
     // ev = event
-    const onLogout = (ev) =>{
+    const onLogout = (ev) => {
         ev.preventDefault
 
         axiosClient.post('/logout')
-            .then(()=>{
+            .then(() => {
                 setUser({})
                 setToken(null)
             })
     }
 
     // retrieve user info
-    useEffect(()=>{
+    useEffect(() => {
         axiosClient.get('/user')
             .then(({ data }) => { // response
                 setUser(data)
             })
-    }, []) 
+    }, [])
 
     return (
         <div id="defaultLayout">
@@ -52,6 +52,12 @@ export default function DefaultLayout() {
                     <Outlet />
                 </main>
             </div>
+            {/* add notification if exist */}
+            {notification &&
+                <div className="notification">
+                    {notification}
+                </div>
+            }
         </div>
     )
 }
