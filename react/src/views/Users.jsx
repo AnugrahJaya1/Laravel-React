@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import axiosClient from "../axios-client";
+import { Link } from "react-router-dom";
 
 export default function Users() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        getUsers();
+        getUsers(); // exec twice
     }, [])
 
     const getUsers = () => {
@@ -23,7 +24,10 @@ export default function Users() {
 
     return (
         <div>
-            Users
+            <div>
+                <h1>Users</h1>
+                <Link to="/users/new">Add new</Link>
+            </div>
         </div>
     )
 }
