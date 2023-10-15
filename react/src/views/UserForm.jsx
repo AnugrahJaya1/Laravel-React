@@ -4,7 +4,7 @@ import axiosClient from "../axios-client";
 
 export default function UserForm() {
     // get id from param
-    const { id } = useParams()
+    let { id } = useParams()
     // get data info
     const [user, setUser] = useState({
         id: null,
@@ -63,6 +63,7 @@ export default function UserForm() {
                         setErrors(response.data.errors)
                     }
                 })
+        }
     }
 
     return (
@@ -89,8 +90,8 @@ export default function UserForm() {
                     <form onSubmit={onSubmit}>
                         <input value={user.name} onChange={ev => setUser({ ...user, name: ev.target.value })} placeholder="Name" />
                         <input value={user.email} onChange={ev => setUser({ ...user, email: ev.target.value })} placeholder="Email" />
-                        <input onChange={ev => setUser({ ...user, password: ev.target.value })} placeholder="Password" />
-                        <input onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })} placeholder="Password Confirmation" />
+                        <input type="password" onChange={ev => setUser({ ...user, password: ev.target.value })} placeholder="Password" />
+                        <input type="password" onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })} placeholder="Password Confirmation" />
                         <button className="btn">Save</button>
                     </form>
                 )}
